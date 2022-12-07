@@ -1,15 +1,16 @@
 import { useAppDispatch } from "../../app/hooks";
+import { addNotification } from "../Alert/alertsSlice";
 import { addItem, Item } from "../cart/cartSlice";
 import "./Product.css";
+import { ProductModel } from "./productsSlice";
 
 export interface ProductProps {
-  name: string;
-  price: number;
-  id: string;
+  product: ProductModel;
 }
 
-export function Product(product: ProductProps) {
+export function Product(props: ProductProps) {
   const dispatch = useAppDispatch();
+  const { product } = props;
 
   const item: Item = {
     id: product.id,
@@ -18,19 +19,29 @@ export function Product(product: ProductProps) {
     quantity: 1,
   };
 
-  return (
-    <div className="product">
-      <h3>{product.name}</h3>
-      <span className="product-price">{product.price}</span>
+  const handleClick = () => {
+    dispatch(addItem(item));
+    dispatch(
+      addNotification({
+        message: `Produkt ${item.name} został dodany do koszyka.`,
+        type: "success",
+      })
+    );
+  };
 
-      <button
-        className="product-btn"
-        onClick={() => {
-          dispatch(addItem(item));
-        }}
-      >
-        Add product
-      </button>
+  return (
+    <div className="card">
+      <img className="h-75" src={product.image} alt={product.name}></img>
+      <div className="card-body">
+        <h5 className="card-title">{product.name}</h5>
+      </div>
+      <div className="card-footer d-flex justify-content-between align-items-center">
+        <strong className="product-price">{product.price}</strong>
+
+        <button className="btn btn-primary" onClick={handleClick}>
+          Add product
+        </button>
+      </div>
     </div>
   );
 }

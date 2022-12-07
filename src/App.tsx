@@ -1,11 +1,10 @@
 import React from "react";
-import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
+
 import "./App.css";
 import { Shop } from "./features/cart/Shop";
-import Navbar from "./features/Navbar/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import "./../node_modules/bootstrap/dist/css/bootstrap.css";
+import { Navbar } from "./features/Navbar/Navbar";
+import "./../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 function App() {
   return (
     <>
